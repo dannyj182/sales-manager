@@ -9,9 +9,9 @@ import java.util.List;
 @Getter @Setter
 public class SaleDTO {
 
-    private Long id;
+    private long saleId;
     private LocalDate dateSale;
-    private Double total;
-    private List<ProductDTO> productList;
+    private double totalSale;
+    private List<ItemDTO> items;
     private CustomerDTO customer;
 }

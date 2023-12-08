@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ProductDTO {
+public class ItemDTO {
 
-    private long productId;
-    private String name;
-    private String brand;
+    private String productName;
+    private String productBrand;
     private double price;
     private double quantity;
+    private double totalItem;
 }

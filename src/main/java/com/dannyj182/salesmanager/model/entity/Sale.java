@@ -17,12 +17,13 @@ public class Sale {
 
     @Id
     @GeneratedValue (strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @Column(name = "sale_id")
+    private Long saleId;
     private LocalDate dateSale;
-    private Double total;
+    private Double totalSale;
     @OneToMany
-    private List<Product> productList;
-    @OneToOne
-    @JoinColumn (name = "customer_id", referencedColumnName = "id")
+    private List<Item> items;
+    @ManyToOne
+    @JoinColumn (name = "customerId")
     private Customer customer;
 }

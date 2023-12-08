@@ -1,9 +1,6 @@
 package com.dannyj182.salesmanager.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +14,8 @@ public class Customer {
 
     @Id
     @GeneratedValue (strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @Column(name = "customer_id")
+    private Long customerId;
     private String name;
     private String lastName;
     private String passportCard;
