@@ -9,6 +9,6 @@ public class ProductDTO {
     private Long id;
     private String name;
     private String brand;
-    private Double cost;
+    private Double price;
     private Double quantity;
 }
