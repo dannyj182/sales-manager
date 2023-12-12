@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ICustomerRepository extends CrudRepository<Customer, Long> {
     Boolean existsByPassportCard(String passportCard);
-    Boolean existsByCustomerId(Long id);
 }

@@ -40,7 +40,7 @@ public class CustomerService implements ICustomerService{
 
     @Override
     public boolean deleteById(Long id) {
-        if (repository.existsByCustomerId(id)){
+        if (repository.existsById(id)){
             repository.deleteById(id);
             return true;
         }
