@@ -5,7 +5,6 @@ import com.dannyj182.salesmanager.model.entity.Customer;
 import com.dannyj182.salesmanager.model.mapper.CustomerMapper;
 import com.dannyj182.salesmanager.repository.ICustomerRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +12,10 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
 public class CustomerService implements ICustomerService{
 
-    private ICustomerRepository repository;
-    private CustomerMapper mapper;
+    private final ICustomerRepository repository;
+    private final CustomerMapper mapper;
 
     @Override
     public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
