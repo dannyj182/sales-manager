@@ -15,7 +15,7 @@ public class ProductDTO {
     public void editProduct(ProductDTO productDTO) {
         if(productDTO.name != null) this.setName(productDTO.name);
         if(productDTO.brand != null) this.setBrand(productDTO.brand);
-        if(productDTO.price >= 0) this.setPrice(productDTO.price);
+        if(productDTO.price > 0) this.setPrice(productDTO.price);
         if(productDTO.quantity >= 0) this.setQuantity(productDTO.quantity);
     }
 
