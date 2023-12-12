@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IProductRepository extends CrudRepository<Product, Long> {
-    Boolean existsByProductId(Long id);
 }
