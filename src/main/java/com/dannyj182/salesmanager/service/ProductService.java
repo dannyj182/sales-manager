@@ -25,7 +25,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Optional<ProductDTO> findById(Long id) {
-        return repository.findById(id).map(product -> mapper.toProductDTO(product));
+        return repository.findById(id).map(mapper::toProductDTO);
     }
 
     @Override
@@ -35,21 +35,27 @@ public class ProductService implements IProductService {
 
     @Override
     public boolean deleteById(Long id) {
-        if (repository.existsById(id)){
-            repository.deleteById(id);
-            return true;
-        }
-        return false;
+        if (!repository.existsById(id)) return false;
+        repository.deleteById(id);
+        return true;
     }
 
     @Override
     public ProductDTO editProduct(Long id, ProductDTO productDTO) {
         Optional<Product> optionalProduct = repository.findById(id);
-        if(optionalProduct.isPresent()){
-            ProductDTO productDTOEdited = mapper.toProductDTO(optionalProduct.get());
-            productDTOEdited.editProduct(productDTO);
-            return mapper.toProductDTO(repository.save(mapper.toProduct(productDTOEdited)));
-        }
-        return null;
+        if(optionalProduct.isEmpty()) return null;
+        ProductDTO productDTOEdited = mapper.toProductDTO(optionalProduct.get());
+        productDTOEdited.editProduct(productDTO);
+        return mapper.toProductDTO(repository.save(mapper.toProduct(productDTOEdited)));
+    }
+
+    @Override
+    public Product validateProduct(Long id, Double quantity) {
+        Optional<Product> optionalProduct = repository.findById(id);
+        if(optionalProduct.isPresent() && optionalProduct.get().getQuantity() >= quantity){
+            Product product = optionalProduct.get();
+            product.setQuantity(product.getQuantity() - quantity);
+            return repository.save((product));
+        }else return null;
     }
 }

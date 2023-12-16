@@ -13,7 +13,7 @@ import lombok.Setter;
 public class Item {
 
     @EmbeddedId
-    private ItemPK id;
+    private ItemPK itemId;
     private Double price;
     private Double quantity;
     private Double totalItem;
@@ -22,6 +22,7 @@ public class Item {
     @JoinColumn(name = "sale_id", insertable = false, updatable = false)
     private Sale sale;
     @ManyToOne
+    @MapsId("productId")
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private Product product;
 }

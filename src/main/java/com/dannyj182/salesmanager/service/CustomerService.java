@@ -19,16 +19,13 @@ public class CustomerService implements ICustomerService{
 
     @Override
     public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
-        if (!repository.existsByPassportCard(customerDTO.getPassportCard())){
-            Customer customer = mapper.toCustomer(customerDTO);
-            return mapper.toCustomerDTO(repository.save(customer));
-        }
-        return null;
+        if (repository.existsByPassportCard(customerDTO.getPassportCard())) return null;
+        return mapper.toCustomerDTO(repository.save(mapper.toCustomer(customerDTO)));
     }
 
     @Override
     public Optional<CustomerDTO> findById(Long id) {
-        return repository.findById(id).map(customer -> mapper.toCustomerDTO(customer));
+        return repository.findById(id).map(mapper::toCustomerDTO);
     }
 
     @Override
@@ -38,21 +35,22 @@ public class CustomerService implements ICustomerService{
 
     @Override
     public boolean deleteById(Long id) {
-        if (repository.existsById(id)){
-            repository.deleteById(id);
-            return true;
-        }
-        return false;
+        if (!repository.existsById(id)) return false;
+        repository.deleteById(id);
+        return true;
     }
 
     @Override
     public CustomerDTO editCustomer(Long id, CustomerDTO customerDTO) {
         Optional<Customer> optionalCustomer = repository.findById(id);
-        if (optionalCustomer.isPresent()){
-            CustomerDTO customerDTOEdited = mapper.toCustomerDTO(optionalCustomer.get());
-            customerDTOEdited.editCustomer(customerDTO);
-            return mapper.toCustomerDTO(repository.save(mapper.toCustomer(customerDTOEdited)));
-        }
-        return null;
+        if (optionalCustomer.isEmpty()) return null;
+        CustomerDTO customerDTOEdited = mapper.toCustomerDTO(optionalCustomer.get());
+        customerDTOEdited.editCustomer(customerDTO);
+        return mapper.toCustomerDTO(repository.save(mapper.toCustomer(customerDTOEdited)));
+    }
+
+    @Override
+    public Optional<Customer> getCustomer(Long id) {
+        return repository.findById(id);
     }
 }

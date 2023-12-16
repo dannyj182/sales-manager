@@ -14,7 +14,6 @@ public class Customer {
 
     @Id
     @GeneratedValue (strategy = GenerationType.SEQUENCE)
-    @Column(name = "customer_id")
     private Long customerId;
     private String name;
     private String lastName;

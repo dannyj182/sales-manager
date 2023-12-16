@@ -1,6 +1,7 @@
 package com.dannyj182.salesmanager.service;
 
 import com.dannyj182.salesmanager.model.dto.CustomerDTO;
+import com.dannyj182.salesmanager.model.entity.Customer;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,4 +12,5 @@ public interface ICustomerService {
     List<CustomerDTO> findAll();
     boolean deleteById(Long id);
     CustomerDTO editCustomer(Long id, CustomerDTO customerDTO);
+    Optional<Customer> getCustomer(Long id);
 }

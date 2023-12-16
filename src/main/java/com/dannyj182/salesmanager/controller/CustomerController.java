@@ -36,7 +36,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteById(@PathVariable Long id){
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
         if (service.deleteById(id)) return new ResponseEntity<>(HttpStatus.OK);
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

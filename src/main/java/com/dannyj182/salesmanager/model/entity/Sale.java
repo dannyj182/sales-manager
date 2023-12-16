@@ -17,7 +17,6 @@ public class Sale {
 
     @Id
     @GeneratedValue (strategy = GenerationType.SEQUENCE)
-    @Column(name = "sale_id")
     private Long saleId;
     private LocalDate dateSale;
     private Double totalSale;
