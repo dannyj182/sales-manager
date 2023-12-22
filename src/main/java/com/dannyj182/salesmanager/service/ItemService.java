@@ -23,6 +23,7 @@ public class ItemService implements IItemService {
     public List<Item> saveAll(List<Item> itemList) {
         return (List<Item>) repository.saveAll(itemList);
     }
+
     @Override
     public List<Item> validateItems(List<ItemDTO> itemDTOList) {
         List<Item> itemList = new ArrayList<>();
@@ -43,5 +44,16 @@ public class ItemService implements IItemService {
         Item item = mapper.toItem(itemDTO);
         item.setProduct(product);
         return item;
+    }
+
+    @Override
+    public void emptyList(Long id) {
+        List<Item> itemList = repository.findByItemId_SaleId(id);
+        this.returnProducts(itemList);
+        repository.deleteAll(itemList);
+    }
+
+    private void returnProducts(List<Item> itemList){
+        itemList.forEach(item -> productService.returnProduct(item.getProduct().getProductId(), item.getQuantity()));
     }
 }

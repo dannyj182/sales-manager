@@ -55,7 +55,14 @@ public class SaleService implements ISaleService {
 
     @Override
     public boolean deleteById(Long id) {
-        return false;
+        Optional<Sale> saleOptional = repository.findById(id);
+        if(saleOptional.isEmpty()) return false;
+        Sale sale = saleOptional.get();
+        sale.setItems(null);
+        repository.save(sale);
+        itemService.emptyList(sale.getSaleId());
+        repository.delete(sale);
+        return true;
     }
 
     @Override

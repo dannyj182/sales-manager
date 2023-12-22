@@ -58,4 +58,14 @@ public class ProductService implements IProductService {
             return repository.save((product));
         }else return null;
     }
+
+    @Override
+    public void returnProduct(Long id, Double quantity) {
+        Optional<Product> optionalProduct = repository.findById(id);
+        if (optionalProduct.isPresent()){
+            Product product = optionalProduct.get();
+            product.setQuantity(product.getQuantity() + quantity);
+            repository.save((product));
+        }
+    }
 }

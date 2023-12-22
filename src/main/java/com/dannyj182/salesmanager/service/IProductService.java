@@ -13,4 +13,5 @@ public interface IProductService {
     boolean deleteById(Long id);
     ProductDTO editProduct (Long id, ProductDTO productDTO);
     Product validateProduct(Long id, Double quantity);
+    void returnProduct(Long id, Double quantity);
 }

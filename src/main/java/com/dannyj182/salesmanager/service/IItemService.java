@@ -8,4 +8,5 @@ import java.util.List;
 public interface IItemService {
     List<Item> saveAll(List<Item> itemList);
     List<Item> validateItems(List<ItemDTO> itemDTOList);
+    void emptyList(Long id);
 }
