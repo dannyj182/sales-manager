@@ -40,4 +40,11 @@ public class SaleController {
         if(service.deleteById(id)) return new ResponseEntity<>(HttpStatus.OK);
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<SaleDTO> editSale(@PathVariable Long id, @RequestBody SaleDTO saleDTO){
+        SaleDTO saleDTOEdited = service.editSale(id, saleDTO);
+        if (saleDTOEdited != null) return new ResponseEntity<>(saleDTOEdited, HttpStatus.OK);
+        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

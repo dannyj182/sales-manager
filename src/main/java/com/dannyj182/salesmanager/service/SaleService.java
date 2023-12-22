@@ -67,6 +67,12 @@ public class SaleService implements ISaleService {
 
     @Override
     public SaleDTO editSale(Long id, SaleDTO saleDTO) {
-        return null;
+        Optional<Sale> optionalSale = repository.findById(id);
+        if (optionalSale.isEmpty()) return null;
+        Sale sale = optionalSale.get();
+        if (saleDTO.getDateSale() != null) sale.setDateSale(saleDTO.getDateSale());
+        Optional<Customer> optionalCustomer = customerService.getCustomer(saleDTO.getCustomer().getCustomerId());
+        optionalCustomer.ifPresent(sale::setCustomer);
+        return mapper.toSaleDTO(repository.save(sale));
     }
 }
