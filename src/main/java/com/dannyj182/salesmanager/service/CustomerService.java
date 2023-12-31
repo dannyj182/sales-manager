@@ -50,7 +50,8 @@ public class CustomerService implements ICustomerService{
     }
 
     @Override
-    public Optional<Customer> getCustomer(Long id) {
-        return repository.findById(id);
+    public Customer getCustomer(Long id) {
+        if (id == null) return null;
+        else return repository.findById(id).orElse(null);
     }
 }

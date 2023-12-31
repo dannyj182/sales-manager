@@ -23,6 +23,6 @@ public class Sale {
     @OneToMany
     private List<Item> items;
     @ManyToOne
-    @JoinColumn (name = "customerId")
+    @JoinColumn (name = "customer_id")
     private Customer customer;
 }

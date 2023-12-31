@@ -6,19 +6,20 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-@Mapper(componentModel = "spring", uses = {SaleMapper.class, ProductMapper.class})
+import java.util.List;
+
+@Mapper(componentModel = "spring", uses = {SaleMapper.class, ProductMapper.class, ItemPKMapper.class})
 public interface ItemMapper {
 
     @Mappings({
-            @Mapping(source = "product.productId", target = "productId"),
             @Mapping(source = "product.name", target = "productName"),
             @Mapping(source = "product.brand", target = "productBrand")
     })
     ItemDTO toItemDTO(Item item);
 
+    List<ItemDTO> toItemsDTO(List<Item> items);
+
     @Mappings({
-            @Mapping(target = "itemId.saleId", ignore = true),
-            @Mapping(target = "itemId.productId", ignore = true),
             @Mapping(target = "sale", ignore = true),
             @Mapping(target = "product", ignore = true),
     })

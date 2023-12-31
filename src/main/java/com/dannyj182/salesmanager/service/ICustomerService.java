@@ -12,5 +12,5 @@ public interface ICustomerService {
     List<CustomerDTO> findAll();
     boolean deleteById(Long id);
     CustomerDTO editCustomer(Long id, CustomerDTO customerDTO);
-    Optional<Customer> getCustomer(Long id);
+    Customer getCustomer(Long id);
 }

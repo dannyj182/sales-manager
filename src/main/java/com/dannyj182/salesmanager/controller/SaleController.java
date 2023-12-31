@@ -23,6 +23,14 @@ public class SaleController {
         else return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
+    @PatchMapping("/items")
+    public ResponseEntity<SaleDTO> addItems(@RequestBody SaleDTO saleDTO){
+        SaleDTO saleDTOSaved = service.addItems(saleDTO);
+        if(saleDTOSaved != null) return new ResponseEntity<>(saleDTOSaved, HttpStatus.CREATED);
+        else return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<SaleDTO> findById(@PathVariable Long id) {
         return service.findById(id)
@@ -38,6 +46,13 @@ public class SaleController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         if(service.deleteById(id)) return new ResponseEntity<>(HttpStatus.OK);
+        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/items")
+    public ResponseEntity<SaleDTO> deleteItems(@RequestBody SaleDTO saleDTO){
+        SaleDTO saleDTOSaved = service.deleteItems(saleDTO);
+        if(saleDTOSaved != null) return new ResponseEntity<>(saleDTOSaved, HttpStatus.OK);
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

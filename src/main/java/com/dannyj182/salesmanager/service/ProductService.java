@@ -50,22 +50,24 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product validateProduct(Long id, Double quantity) {
-        Optional<Product> optionalProduct = repository.findById(id);
-        if(optionalProduct.isPresent() && optionalProduct.get().getQuantity() >= quantity){
-            Product product = optionalProduct.get();
+    public Product extractProduct(Long id, Double quantity) {
+        Product product = this.getProduct(id);
+        if(product != null && product.getQuantity() >= quantity){
             product.setQuantity(product.getQuantity() - quantity);
             return repository.save((product));
         }else return null;
     }
 
     @Override
-    public void returnProduct(Long id, Double quantity) {
-        Optional<Product> optionalProduct = repository.findById(id);
-        if (optionalProduct.isPresent()){
-            Product product = optionalProduct.get();
+    public void returnProduct(Long productId, Double quantity) {
+        Product product = this.getProduct(productId);
+        if (product != null){
             product.setQuantity(product.getQuantity() + quantity);
-            repository.save((product));
+            repository.save(product);
         }
+    }
+
+    private Product getProduct(Long id){
+        return repository.findById(id).orElse(null);
     }
 }
