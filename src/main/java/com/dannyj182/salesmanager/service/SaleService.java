@@ -107,7 +107,7 @@ public class SaleService implements ISaleService {
         if (sale == null) return null;
         this.setDateSale(sale, saleDTO.getDateSale());
         this.setCustomer(sale, saleDTO.getCustomer());
-        if (this.editItems(saleDTO.getItems())) {
+        if (this.editItems(sale.getSaleId(), saleDTO.getItems())) {
             sale.setTotalSale(sale.getItems().stream().mapToDouble(Item::getTotalItem).sum());
         }
         return mapper.toSaleDTO(repository.save(sale));
@@ -128,11 +128,12 @@ public class SaleService implements ISaleService {
         }
     }
 
-    private boolean editItems(List<ItemDTO> itemDTOList){
+    private boolean editItems(Long saleId, List<ItemDTO> itemDTOList){
         List<Item> itemList = new ArrayList<>();
         if (itemDTOList != null){
             for(ItemDTO itemDTO : itemDTOList){
                 if (itemDTO.getItemId() != null){
+                    itemDTO.getItemId().setSaleId(saleId);
                     Item item = itemService.updateItem(itemDTO);
                     if (item != null) itemList.add(item);
                 }
